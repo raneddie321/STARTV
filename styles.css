@@ -1,0 +1,111 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-glow: var(--glow);
+  --font-display: "Heebo", "Assistant", system-ui, sans-serif;
+}
+
+:root {
+  --background: oklch(0.14 0.02 260);
+  --foreground: oklch(0.98 0.005 240);
+  --card: oklch(0.20 0.025 260);
+  --card-foreground: oklch(0.98 0.005 240);
+  --primary: oklch(0.72 0.18 245);
+  --primary-foreground: oklch(0.10 0.02 260);
+  --secondary: oklch(0.28 0.03 260);
+  --secondary-foreground: oklch(0.98 0.005 240);
+  --muted: oklch(0.24 0.025 260);
+  --muted-foreground: oklch(0.70 0.02 250);
+  --accent: oklch(0.65 0.20 250);
+  --accent-foreground: oklch(0.98 0.005 240);
+  --border: oklch(1 0 0 / 0.08);
+  --ring: oklch(0.72 0.20 245);
+  --glow: oklch(0.72 0.22 245);
+
+  --gradient-bg: radial-gradient(ellipse at top right, oklch(0.22 0.06 265) 0%, oklch(0.10 0.02 260) 55%, oklch(0.06 0.015 260) 100%);
+  --gradient-hero: linear-gradient(180deg, transparent 0%, oklch(0.08 0.02 260 / 0.4) 50%, oklch(0.08 0.02 260) 100%);
+  --gradient-primary: linear-gradient(135deg, oklch(0.72 0.18 245), oklch(0.55 0.22 270));
+  --shadow-glow: 0 0 0 3px oklch(0.72 0.22 245 / 0.9), 0 0 40px 4px oklch(0.72 0.25 245 / 0.55), 0 20px 60px -10px oklch(0.55 0.25 270 / 0.6);
+  --shadow-card: 0 10px 40px -10px oklch(0 0 0 / 0.6);
+  --glass-bg: oklch(1 0 0 / 0.06);
+  --glass-border: oklch(1 0 0 / 0.10);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body, #root { height: 100%; }
+  html { direction: rtl; }
+  body {
+    background: var(--gradient-bg);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+  /* Hide native focus rings - we draw our own */
+  *:focus, *:focus-visible { outline: none !important; }
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border);
+}
+
+@utility glass-strong {
+  background: oklch(0.18 0.02 260 / 0.72);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+@utility focus-glow {
+  box-shadow: var(--shadow-glow);
+  transform: scale(1.08);
+  z-index: 10;
+}
+
+@utility focus-glow-sm {
+  box-shadow: 0 0 0 2px oklch(0.72 0.22 245), 0 0 24px 0 oklch(0.72 0.25 245 / 0.6);
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+@keyframes tap-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes tap-pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 3px oklch(0.72 0.22 245 / 0.9), 0 0 40px 4px oklch(0.72 0.25 245 / 0.55); }
+  50% { box-shadow: 0 0 0 3px oklch(0.72 0.22 245 / 0.9), 0 0 60px 8px oklch(0.72 0.25 245 / 0.8); }
+}
+
+@utility animate-tap-fade-up { animation: tap-fade-up 0.5s ease-out both; }
+@utility animate-tap-pulse-glow { animation: tap-pulse-glow 2.4s ease-in-out infinite; }
